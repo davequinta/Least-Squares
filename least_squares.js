@@ -194,7 +194,7 @@ function createPol(values,m){
 }
 
 function createExpFun(values){
-    
+    return values[0] + values[1] +'^x';
 }
 
 //Funcion para caso discreto polinomial
@@ -216,6 +216,7 @@ function DiscLog(n,x,y){
     var coef2 = fillCoef2(n,1,x,math.log(y));
     var values = solveEcc(matrix,coef2); 
     //Funcion --
+    return createExpFun(math.exp(value));
 }
 
 

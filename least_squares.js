@@ -130,8 +130,6 @@ function createMatrix(rows){
 function fillCoef1(n, m, x, y){
     var aux;
     var coef1 = new Array();
-    
-    
      for(var i=0;i<(m*2)+1;i++){
         aux=0;
         for(var k=0;k<n;k++){
@@ -173,7 +171,7 @@ function fillCoef2(n,m,x,y){
         coef2.push(aux);	
 	}  
     return coef2;
-    
+   
 }
 
 /*Resuelve el sistema de eccuaciones con Math.usolve(parm1,parm2):
@@ -195,6 +193,10 @@ function createPol(values,m){
     return fun;
 }
 
+function createExpFun(values){
+    
+}
+
 //Funcion para caso discreto polinomial
 function DiscPol(n,m,x,y){
     var coef1 = fillCoef1(n,m,x,y);
@@ -211,12 +213,9 @@ function DiscPol(n,m,x,y){
 function DiscLog(n,x,y){
     var coef1 = fillCoef1(n,1,x,y);
     var matrix = fillMatrix(m,coef1);
-    var coef2 = fillCoef2(n,1,x,Math.log(y));
+    var coef2 = fillCoef2(n,1,x,math.log(y));
     var values = solveEcc(matrix,coef2); 
-
     //Funcion --
-
-
 }
 
 

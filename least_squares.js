@@ -1,29 +1,33 @@
 function calculate() {
      
     //Numero de datos
-    var n=10;
+    var n=8;
     //Grado del polinimo
     var m=1;
     
     //document.write('Ejercicio de grado ' + m + '<br><br>');
     //Puntos
-     var x = [4.0,4.2,4.5,4.7,5.1,5.5,5.9,6.3,6.8,7.1];
-     var y = [102.56,113.18,130.11,142.05,167.53,195.14,224.87,256.73,299.50,326.72];
+     //var x = [4.0,4.2,4.5,4.7,5.1,5.5,5.9,6.3,6.8,7.1];
+     //var y = [102.56,113.18,130.11,142.05,167.53,195.14,224.87,256.73,299.50,326.72];
     
    
+    var x= [1,2,5,15,25,30,35,40];
+    var y= [99,95,85,55,30,24,30,15];
     
     
+    document.getElementById('dpol').innerHTML=DiscPol(n,m,x,y);
+    document.getElementById('dlog').innerHTML=DiscLog(n,x,y);
+
     
    //document.write(math.log(x));
-    
+    /*
     //document.write(DiscPol(n,m,x,y));
+    document.write(math.log(y)+'<br><br>');
+        //document.write(coef1);
     
-    document.getElementById('demo').innerHTML=DiscPol(n,m,x,y);
-    
-    //document.write(coef1);
-    
+    // document.write(DiscLog(8,x1,y1));
     //coef1[0]=1
-   /* 
+    
     var aux;
     var aux1=0;
     //coef1[0].push(3); 
@@ -69,10 +73,12 @@ function calculate() {
     }   
     
     
+    var ly=math.log10(y);
+    
     for(var k=0; k<m+1; k++){
 		aux=0;
 		for(var i=0; i<n; i++){
-            aux+=(Math.pow(x[i], k))*y[i];
+            aux+=(Math.pow(x[i], k))*(ly[i]);
         }
         coef2.push(aux);	
 	}  
@@ -91,8 +97,9 @@ function calculate() {
     document.write('<br>'+'Valores de incognitas' +'<br>');
 
     var incognitas=numeric.solve(ecc,coef2); 
+    var inco= math.exp(incognitas);
     for(var i=0;i<m+1;i++){
-        document.write(incognitas[i]+'<br>');
+        document.write(inco[i]+'<br>');
     }
     
     var fun='';
@@ -194,7 +201,7 @@ function createPol(values,m){
 }
 
 function createExpFun(values){
-    return values[0] + values[1] +'^x';
+    return values[0]+'*'+values[1]+'^x';
 }
 
 //Funcion para caso discreto polinomial
@@ -207,16 +214,16 @@ function DiscPol(n,m,x,y){
     //document.write(coef2);
     //Valores de las incognitas
     var values = solveEcc(matrix,coef2); 
-    
     return createPol(values,m);    
 }
 function DiscLog(n,x,y){
     var coef1 = fillCoef1(n,1,x,y);
-    var matrix = fillMatrix(m,coef1);
-    var coef2 = fillCoef2(n,1,x,math.log(y));
+    var matrix = fillMatrix(1,coef1);
+    var coef2 = fillCoef2(n,1,x,math.log10(y));
     var values = solveEcc(matrix,coef2); 
     //Funcion --
-    return createExpFun(math.exp(value));
+    return createExpFun(math.exp(values));
+    
 }
 
 

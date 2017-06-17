@@ -208,8 +208,15 @@ function DiscPol(n,m,x,y){
     
     return createPol(values,m);    
 }
-function DiscLog(n,m,x,y){
-     
+function DiscLog(n,x,y){
+    var coef1 = fillCoef1(n,1,x,y);
+    var matrix = fillMatrix(m,coef1);
+    var coef2 = fillCoef2(n,1,x,Math.log(y));
+    var values = solveEcc(matrix,coef2); 
+
+    //Funcion --
+
+
 }
 
 

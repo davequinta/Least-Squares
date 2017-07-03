@@ -164,10 +164,21 @@ function DiscPoten(n,x,y){
 }
 
 function DiscLog(n,x,y){
-    
+    var coef1 = fillCoef2(n,1,math.log(x),y);
+    var promy = (fillCoef1(n,1,y))/n;
+    var coef2 = fillCoef1(n,1,math.log(y));
+    var coef3 = fillCoef1(n,2,math.log(x));
+    var coef4 = fillCoef1(n,1,math.log(x));   
+    var promx = coef4/n;
+    var promly = coef2/n;
+
+    var a = (coef1 -(promy * coef2))/(coef3-(promx * coef4));
+
+    var b = promy - (a * promly);
+
+    return b;
     
 }
-
 
 
 

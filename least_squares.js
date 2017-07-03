@@ -24,11 +24,30 @@ function calculate() {
     document.getElementById('dpol').innerHTML=DiscPol(n,m,x,y);
     document.getElementById('dexp').innerHTML=DiscExpo(n,x,y);
     document.getElementById('dpot').innerHTML=DiscPoten(n,x,y);
-	    document.getElementById('dlog').innerHTML=DiscLog(8,x1,y1);
+    document.getElementById('dlog').innerHTML=DiscLog(8,x1,y1);
+    
+ 
+    
 
 
 
    
+}
+
+// Funcion para pares ordenados
+
+function parOrd(x,y){
+    var xy = createMatrix(x2.length);
+    
+    
+    for(var i =0; i<x2.length;i++){
+        for(var j=0;j<1;j++){
+            xy[i].push(x2[i+j]);
+            xy[i].push(y2[i+j]);
+        }
+    }
+    
+    return xy;
 }
 
 //Funcion de integral definida
@@ -130,6 +149,10 @@ function createPotFun(values){
     return math.exp(values[0])+'*x^'+values[1];
     
 }
+function createLogFun(values){
+    return math.exp(values[0])+'*ln(x)+'+values[1];  
+}
+
 
 /**FUNCIONES PARA LOS METODOS **/
 
@@ -151,7 +174,6 @@ function DiscExpo(n,x,y){
     var matrix = fillMatrix(1,coef1);
     var coef2 = fillCoef2(n,1,x,math.log(y));
     var values = solveEcc(matrix,coef2); 
-    console.log(values)
     //Funcion --
     return createExpFun(values);
     
@@ -164,7 +186,6 @@ function DiscPoten(n,x,y){
     var matrix = fillMatrix(1,coef1);
     var coef2 = fillCoef2(n,1,math.log(x),math.log(y));
     var values = solveEcc(matrix,coef2); 
-    console.log(values);
     //Funcion --
     return createPotFun(values);
     
@@ -184,14 +205,10 @@ function DiscLog(n,x,y){
 
     var b = (p2/n) - (a * (p5/n));
     var values = [a,b];
-     console.log(values);
     return createLogFun(values);
     
 }
 
-function createLogFun(values){
-    return math.exp(values[0])+'*ln(x)+'+values[1];  
-}
 
 
 

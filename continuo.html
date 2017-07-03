@@ -247,7 +247,7 @@
                         <button type="button" class="btn bg-red btn-xs waves-effect m-r-20" style="margin-top: 5px">Generar PDF</button>
                     </div>
                     <div class="body">
-                      <canvas id="myChart" height="150"></canvas>  
+                        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div> 
                     </div>
             </div>
             
@@ -327,8 +327,9 @@
     <!-- Custom Js -->
     <script src="js/admin.js"></script>
 
-    <!-- Chart Plugins Js -->
-    <script src="plugins/chartjs/Chart.bundle.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 
 
@@ -393,43 +394,39 @@
     </script>
 
     <script>
-        var ctx = document.getElementById("myChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
+            Highcharts.chart('container', {
+        xAxis: {
+            min: -0.5,
+            max: 5.5
+        },
+        yAxis: {
+            min: 0
+        },
+        title: {
+            text: 'Scatter plot with regression line'
+        },
+        series: [{
+            type: 'line',
+            name: 'Regression Line',
+            data: [[0, 1.11], [5, 4.51]],
+            marker: {
+                enabled: false
             },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
+            states: {
+                hover: {
+                    lineWidth: 0
                 }
+            },
+            enableMouseTracking: false
+        }, {
+            type: 'scatter',
+            name: 'Observations',
+            data: [1, 1.5, 2.8, 3.5, 3.9, 4.2],
+            marker: {
+                radius: 4
             }
-        });
+        }]
+    });
 </script>
 </body>
 

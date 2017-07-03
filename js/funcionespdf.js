@@ -62,13 +62,14 @@ function CasoDiscretoPDF(){
   y+=30;
   x+=165;
 //pdf.rect(x,y, 525,200);
+// Creacion Tabla
   pdf.setLineWidth(1);
   pdf.setDrawColor(0,2,50);
-  pdf.line(x,y,x+200,y);
-  pdf.line(x,y+20,x+200,y+20);
-  pdf.line(x,y,x,y+20);
-  pdf.line(x+200,y,x+200,y+20);
-  pdf.line(x+100,y,x+100,y+20);
+  pdf.line(x,y,x+200,y);//Linea superior de la tabla
+  pdf.line(x,y+20,x+200,y+20);//Linea inferior de los titulos de la tabla
+  pdf.line(x,y,x,y+20);// linea lateral izquiera de los titulos de la tabla
+  pdf.line(x+200,y,x+200,y+20);//linea lateral derecha de los titulos de la tabla
+  pdf.line(x+100,y,x+100,y+20);//linea divisora de los titulos de la tabla
   pdf.text('valor en x', x+10, y+16);
   pdf.text('f(x)', x+110, y+16);
   y+=20;
@@ -76,14 +77,14 @@ function CasoDiscretoPDF(){
   var eva; // variable que tiene el array de los valores ya interpolados
   var reales; // variable que tiene el array de valores evaluados en funcion original
   for (var i = 0; i < inter; i++) {
-    pdf.line(x,y,x,y+20);
-    pdf.line(x+200,y,x+200,y+20);
-    pdf.line(x+100,y,x+100,y+20);
+    pdf.line(x,y,x,y+20);//linea lateral derecha
+    pdf.line(x+200,y,x+200,y+20);//linea lateral izquierda
+    pdf.line(x+100,y,x+100,y+20);//linea divisora
     pdf.text('valor '+i, x+10, y+16);
     pdf.text('valor evaluado '+i, x+110, y+16);
     y+=20;
   }
-  pdf.line(x,y,x+200,y);
+  pdf.line(x,y,x+200,y);//linea inferior de la tabla
 
   pdf.save('Smirnov');
 }
@@ -105,6 +106,10 @@ function CasoContinuoPDF(){
   //variable que almacena la funcion
   var fun='f(x)= cos(5*x)+sin^2(6*x)+x'
   pdf.text(fun, 290, y);
+  y+=40;
+  pdf.text('Intervalo ingresado por el usuario:', x, y)
+  var intervalo='[ 1 , 6 ]';
+  pdf.text(intervalo,x+290, y )
   y+=40;
   pdf.text('Ecuaciones Normales encontradas: ', x ,y)
   // variable e = numero de ecuaciones normales
@@ -149,23 +154,24 @@ function CasoContinuoPDF(){
   pdf.text('valor en x', x+10, y+16);
   pdf.text('f(x)', x+110, y+16);
   pdf.text('valor real', x+210, y+16);
-  pdf.text('ERP', x+310,y+16);
+  pdf.text('ERP' , x+310,y+16);
   y+=20;
   var inter=5;//variable que tiene el array de valores a interpolar
   var eva; // variable que tiene el array de los valores ya interpolados
+  var real;//variable que contiene el array de valores evaluados en la funcion original
   for (var i = 0; i < inter; i++) {
     pdf.line(x,y,x,y+20);//linea lateral izquierda
     pdf.line(x+200,y,x+200,y+20);//linea divisora central
     pdf.line(x+100,y,x+100,y+20);//linea divisora izquierda
     pdf.line(x+300,y,x+300,y+20);//linea divisora derecha
     pdf.line(x+400,y,x+400,y+20);//linea lateral derecha
-    pdf.text('valor '+i, x+10, y+16);
-    pdf.text('valor evaluado '+i, x+110, y+16);
-    pdf.text('valor real ' +i, x+210, y+16);
-    pdf.text('ERP '+i, x+310,y+16);
+    pdf.text('valor '+i /*inter[i]*/, x+10, y+16);
+    pdf.text('valor evaluado '+i /*eva[i]*/, x+110, y+16);
+    pdf.text('valor real ' +i /*real[i]*/, x+210, y+16);
+    pdf.text('ERP '+i /* ((real[i]-eva[i])/real[i])*100 + '%' */, x+310,y+16);
     y+=20;
   }
-  pdf.line(x,y,x+400,y);
+  pdf.line(x,y,x+400,y);//Linea inferior de la tabla
 
   pdf.save('Smirnov');
 }

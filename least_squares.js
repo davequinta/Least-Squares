@@ -120,6 +120,14 @@ function calculate() {
     //document.write('Hola');
 }
 
+//Funcion de integral definida
+function d_integral(fun, li, ls){
+    var StrIntg = 'integrate(' + fun + ',x,'+li+','+ls+')';
+    return math.eval(StrIntg);
+    
+}
+
+
 
 /*
 Crea array bidimensional que no sé por qué 

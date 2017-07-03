@@ -14,10 +14,17 @@ function calculate() {
     //var x= [1,2,5,15,25,30,35,40];
     //var y= [99,95,85,55,30,24,30,15];
     
+	
+       
+    var x1 = [1,1.2,1.5,2,3,3.7,4,4.5];
+     var y1 = [3,3.4,5,2,4.1,5,7,6.5];
+    	
+	
     
     document.getElementById('dpol').innerHTML=DiscPol(n,m,x,y);
     document.getElementById('dexp').innerHTML=DiscExpo(n,x,y);
     document.getElementById('dpot').innerHTML=DiscPoten(n,x,y);
+	    document.getElementById('dlog').innerHTML=DiscLog(8,x1,y1);
 
 
 
@@ -165,20 +172,27 @@ function DiscPoten(n,x,y){
 
 function DiscLog(n,x,y){
     var coef1 = fillCoef2(n,1,math.log(x),y);
-    var promy = (fillCoef1(n,1,y))/n;
     var coef2 = fillCoef1(n,1,math.log(y));
     var coef3 = fillCoef1(n,2,math.log(x));
     var coef4 = fillCoef1(n,1,math.log(x));   
-    var promx = coef4/n;
-    var promly = coef2/n;
+    var p1 = coef1[1];
+    var p2 = coef1[0];
+    var p3 = coef2[1];
+    var p4 = coef3[2];
+    var p5 = coef4[1];
+    var a = (p1-(p2/n)*p5)/(p4-(p5/n)*p5);
 
-    var a = (coef1 -(promy * coef2))/(coef3-(promx * coef4));
-
-    var b = promy - (a * promly);
-
-    return b;
+    var b = (p2/n) - (a * (p5/n));
+    var values = [a,b];
+     console.log(values);
+    return createLogFun(values);
     
 }
+
+function createLogFun(values){
+    return math.exp(values[0])+'*ln(x)+'+values[1];  
+}
+
 
 
 

@@ -1,123 +1,27 @@
 function calculate() {
      
     //Numero de datos
-    var n=8;
+    var n=10;
     //Grado del polinimo
     var m=1;
     
     //document.write('Ejercicio de grado ' + m + '<br><br>');
     //Puntos
-     //var x = [4.0,4.2,4.5,4.7,5.1,5.5,5.9,6.3,6.8,7.1];
-     //var y = [102.56,113.18,130.11,142.05,167.53,195.14,224.87,256.73,299.50,326.72];
+     var x = [4.0,4.2,4.5,4.7,5.1,5.5,5.9,6.3,6.8,7.1];
+     var y = [102.56,113.18,130.11,142.05,167.53,195.14,224.87,256.73,299.50,326.72];
     
    
-    var x= [1,2,5,15,25,30,35,40];
-    var y= [99,95,85,55,30,24,30,15];
+    //var x= [1,2,5,15,25,30,35,40];
+    //var y= [99,95,85,55,30,24,30,15];
     
     
     document.getElementById('dpol').innerHTML=DiscPol(n,m,x,y);
-    document.getElementById('dlog').innerHTML=DiscLog(n,x,y);
+    document.getElementById('dexp').innerHTML=DiscExpo(n,x,y);
+    document.getElementById('dpot').innerHTML=DiscPoten(n,x,y);
 
-    
-   //document.write(math.log(x));
-    /*
-    //document.write(DiscPol(n,m,x,y));
-    document.write(math.log(y)+'<br><br>');
-        //document.write(coef1);
-    
-    // document.write(DiscLog(8,x1,y1));
-    //coef1[0]=1
-    
-    var aux;
-    var aux1=0;
-    //coef1[0].push(3); 
-    
-    var  coef1 = new Array();
-    var coef2 = new Array();
-    
-    var num;
-    
+
+
    
-    
-    
-    for(var i=0;i<(m*2)+1;i++){
-        aux=0;
-        for(var k=0;k<n;k++){
-            aux+=Math.pow(x[k],i);   
-        }
-        coef1.push(aux);
-    }
-
-
-    
-    //Probando coeficientes
-    for(var i=0;i<coef1.length;i++){
-        document.write(coef1[i] + '<br>');
-    }
-    
-    document.write('<br>');
-    
-    document.write('Ecuaciones normales'+'<br><br>');
-    
-    var ecc = createMatrix(m+1);
-    
-    
-    for (var i=0;i<m+1;i++){
-        //document.write(i);    
-        for(var j=0;j<m+1;j++){
-            //document.write(matrix.length);
-            //matrix[i][j]=coef1[(i+j)];
-            ecc[i].push(coef1[i+j]);   
-            //document.write('<br>'+'>>'+(i+ j));
-        }
-    }   
-    
-    
-    var ly=math.log10(y);
-    
-    for(var k=0; k<m+1; k++){
-		aux=0;
-		for(var i=0; i<n; i++){
-            aux+=(Math.pow(x[i], k))*(ly[i]);
-        }
-        coef2.push(aux);	
-	}  
-    document.write('Coeficientes 1 <br>' )
-    for(var i=0;i<m+1;i++){
-        document.write(ecc[i]+'<br>');
-    }
-    
-    
-    document.write('<br>'+'Coeficientes 2' +'<br>');
-    
-    for(var i=0;i<m+1;i++){
-        document.write(coef2[i] +"<br>")
-    }
-    
-    document.write('<br>'+'Valores de incognitas' +'<br>');
-
-    var incognitas=numeric.solve(ecc,coef2); 
-    var inco= math.exp(incognitas);
-    for(var i=0;i<m+1;i++){
-        document.write(inco[i]+'<br>');
-    }
-    
-    var fun='';
-    for(var i=0;i<m+1;i++){
-        fun+= (incognitas[i] + "x^" +i);
-        if(i<m){
-            fun+='+';
-        }
-    }
-    
-    //document.write(fun);
-    document.write('<br>');
-    
-    var str = '2';
-
-    */
-    
-    //document.write('Hola');
 }
 
 //Funcion de integral definida
@@ -142,7 +46,7 @@ function createMatrix(rows){
 }
 
 //Array sumatorias de "x"; n numero de datos, m grado del polinomio deseado
-function fillCoef1(n, m, x, y){
+function fillCoef1(n, m, x){
     var aux;
     var coef1 = new Array();
      for(var i=0;i<(m*2)+1;i++){
@@ -196,11 +100,14 @@ function solveEcc(matrix, array){
     return numeric.solve(matrix,array);
 }
 
+
+/**GENERADOR DE ECUACIONES **/
+
 //Crea polinomio de grado m
 function createPol(values,m){
     var fun = '';
     for(var i=0;i<m+1;i++){
-        fun+= (values[i] + "x^" +i);
+        fun+= (values[i] + "*x^" +i);
         if(i<m){
             fun+='+';
         }
@@ -209,12 +116,20 @@ function createPol(values,m){
 }
 
 function createExpFun(values){
-    return values[0]+'*'+values[1]+'^x';
+    return math.exp(values[0])+'*e^('+values[1]+'*x)';
 }
+
+function createPotFun(values){
+    return math.exp(values[0])+'*x^'+values[1];
+    
+}
+
+/**FUNCIONES PARA LOS METODOS **/
+
 
 //Funcion para caso discreto polinomial
 function DiscPol(n,m,x,y){
-    var coef1 = fillCoef1(n,m,x,y);
+    var coef1 = fillCoef1(n,m,x);
     //Matrix
     var matrix = fillMatrix(m,coef1);
     //Arreglo coeficientes "xy"
@@ -224,18 +139,34 @@ function DiscPol(n,m,x,y){
     var values = solveEcc(matrix,coef2); 
     return createPol(values,m);    
 }
-function DiscLog(n,x,y){
-    var coef1 = fillCoef1(n,1,x,y);
+function DiscExpo(n,x,y){
+    var coef1 = fillCoef1(n,1,x);
     var matrix = fillMatrix(1,coef1);
-    var coef2 = fillCoef2(n,1,x,math.log10(y));
+    var coef2 = fillCoef2(n,1,x,math.log(y));
     var values = solveEcc(matrix,coef2); 
+    console.log(values)
     //Funcion --
-    return createExpFun(math.exp(values));
+    return createExpFun(values);
     
 }
 
 
+function DiscPoten(n,x,y){
+    
+    var coef1 = fillCoef1(n,1,math.log(x));
+    var matrix = fillMatrix(1,coef1);
+    var coef2 = fillCoef2(n,1,math.log(x),math.log(y));
+    var values = solveEcc(matrix,coef2); 
+    console.log(values);
+    //Funcion --
+    return createPotFun(values);
+    
+}
 
+function DiscLog(n,x,y){
+    
+    
+}
 
 
 
